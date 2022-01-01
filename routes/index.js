@@ -1,8 +1,11 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
+const user_controller = require('../controllers/user')
 
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
     res.render('index', { title: 'Bank' })
-});
+})
 
-module.exports = router;
+router.post('/', user_controller.create)
+
+module.exports = router
