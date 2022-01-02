@@ -28,3 +28,10 @@ model Transfer {
   amount        Decimal     @db.Decimal(10,2)
   datetime      DateTime
 }
+
+model Session {
+  id          String   @id
+  sid         String   @unique
+  data        String
+  expiresAt   DateTime
+}

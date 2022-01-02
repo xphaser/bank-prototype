@@ -4,7 +4,11 @@ import DefaultLayout from './layouts/default'
 function Main(props) {
     return (
         <DefaultLayout title={props.title}>
-            <div>Hellos</div>
+            <form action="/login" method="post">
+                <input name="email"></input>
+                <input name="password"></input>
+                <input type="submit"></input>
+            </form>
         </DefaultLayout>
     )
 }
