@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const { Prisma, PrismaClient } = require('@prisma/client')
+const { PrismaClient } = require('@prisma/client')
 const { user } = new PrismaClient()
 
 exports.register = async (data) => {

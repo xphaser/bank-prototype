@@ -13,12 +13,12 @@ exports.register = async (req, res) => {
         await auth.register(req.body)
     }
     catch(e) {
-        if(e instanceof Prisma.PrismaClientKnownRequestError) {
-            if (e.code === 'P2002') {
-                return res.status(400).send("E-mail already in use")
-            }
+        if(e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
+            return res.status(400).send("E-mail already in use")
         }
-        return res.status(500).send()
+        else {
+            return res.status(500).send()
+        }
     }
 }
 

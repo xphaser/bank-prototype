@@ -4,6 +4,7 @@ const logger = require('morgan')
 const { PrismaClient } = require('@prisma/client')
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const routes = require('./routes/index')
+const transfer = require('./routes/transfers')
 const prisma = new PrismaClient()
 
 require('dotenv').config()
@@ -36,7 +37,8 @@ app.use(session({
     )
 }))
 
-app.use('/', routes);
+app.use('/', routes)
+app.use('/transfers', transfer)
 
 app.use((req, res, next) => {
     var err = new Error('Not Found')
