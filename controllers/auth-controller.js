@@ -24,7 +24,6 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     const errors = validationResult(req)
-    console.log(req.body.email)
 
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() })
@@ -45,4 +44,37 @@ exports.login = async (req, res) => {
 exports.logout = (req, res) => {
     req.session.destroy()
     res.redirect('/')
+}
+
+exports.resetPasswordRequest = async (req, res) => {
+    const errors = validationResult(req)
+
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
+    }
+
+    try {
+        await auth.resetPasswordRequest(req.body)
+    }
+    catch(e) {
+        console.log(e)
+    }
+
+    res.sendStatus(200)
+}
+
+exports.resetPassword = async (req, res) => {
+    const errors = validationResult(req)
+
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
+    }
+
+    try {
+        await auth.resetPassword(req.body)
+        return res.redirect('/')
+    }
+    catch {
+        return res.render('error', { message: "Invalid or expired token" })
+    }
 }

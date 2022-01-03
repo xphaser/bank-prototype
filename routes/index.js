@@ -28,6 +28,31 @@ router.post(
     authController.login
 )
 
+router.get('/resetPassword', (req, res) => {
+    console.log(req.query.userId)
+    console.log(req.query.token)
+    if(req.query.userId && req.query.token) {
+        console.log("ok")
+        res.render('resetPassword', {
+             title: 'Password Reset', 
+             userId: req.query.userId,
+             token: req.query.token
+        })
+    }
+    else {
+        res.render('resetRequest', { title: 'Password Reset' })
+    }
+})
+
+router.post('/resetRequest', body('email').isEmail(),
+    authController.resetPasswordRequest
+)
+
+router.post('/resetPassword', 
+    body('password').isLength({ min: 8, max: 32 }),
+    authController.resetPassword
+)
+
 router.get('/logout', authController.logout)
 
 module.exports = router

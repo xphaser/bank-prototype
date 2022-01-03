@@ -16,6 +16,7 @@ model User {
   password      String      @db.VarChar(60)
   transfersOut  Transfer[]  @relation("OutgoingTransfers")
   transfersIn   Transfer[]  @relation("IncomingTransfers")
+  token         Token?
 }
 
 model Transfer {
@@ -30,8 +31,16 @@ model Transfer {
 }
 
 model Session {
-  id          String   @id
-  sid         String   @unique
+  id          String        @id
+  sid         String        @unique
   data        String
   expiresAt   DateTime
+}
+
+model Token {
+  id          Int           @id @default(autoincrement())
+  user        User          @relation(fields: [userId], references: [id])
+  userId      String        @unique
+  token       String
+  expires     DateTime
 }
