@@ -28,6 +28,7 @@ model Transfer {
   title         String      @db.VarChar(140)
   amount        Decimal     @db.Decimal(10,2)
   datetime      DateTime
+  status        Status      @default(PENDING)
 }
 
 model Session {
@@ -43,4 +44,9 @@ model Token {
   userId      String        @unique
   token       String
   expires     DateTime
+}
+
+enum Status {
+  PENDING
+  CONFIRMED
 }

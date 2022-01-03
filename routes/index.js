@@ -8,12 +8,16 @@ router.get('/', (req, res) => {
         res.render('index', { title: 'Bank' })
     }
     else {
-        res.render('dashboard', { title: 'Bank' })
+        res.redirect('/transfers')
     }
 })
 
-router.get('/dashboard', auth, (req, res) => {
-    res.render('dashboard', { title: 'Bank' })
+router.get('/login', (req, res) => {
+    res.render('index', { title: 'Bank' })
+})
+
+router.get('/register', (req, res) => {
+    res.render('register', { title: 'Bank' })
 })
 
 router.post(

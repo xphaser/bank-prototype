@@ -10,9 +10,8 @@ const transporter = nodemailer.createTransport({
 })
 
 exports.sendMail = (to, msg) => {
-    console.log("sending")
     message = {
-        from: "no-reply@bank.com",
+        from: "no-reply@bank.pro",
         to: to,
         subject: "Password Reset",
         text: msg

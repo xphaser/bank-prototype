@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt')
 const crypto = require('crypto')
 const mail = require('../utils/email')
 const { PrismaClient } = require('@prisma/client')
-const { reset } = require('nodemon')
 const { user, token } = new PrismaClient()
 
 exports.register = async (data) => {
@@ -41,7 +40,7 @@ exports.resetPasswordRequest = async (data) => {
         throw new Error()
     }
 
-    await token.delete({
+    await token.deleteMany({
         where: {
             userId: currentUser.id
         }

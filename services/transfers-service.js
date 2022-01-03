@@ -9,7 +9,8 @@ exports.readAll = async (user) => {
             },
             {
                 receiverId: user
-            }]
+            }],
+            status: 'CONFIRMED'
         }
     })
 
@@ -38,4 +39,23 @@ exports.create = async (id, data) => {
     })
 
     return newTransfer.id
+}
+
+exports.confirm = async (id) => {
+    await transfer.update({
+        where: {
+            id: parseInt(id)
+        },
+        data: {
+            status: 'CONFIRMED'
+        }
+    })
+}
+
+exports.cancel = async (id) => {
+    await transfer.delete({
+        where: {
+            id: parseInt(id)
+        }
+    })
 }

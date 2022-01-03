@@ -6,7 +6,7 @@ exports.register = async (req, res) => {
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() })
+        return res.render('register', { error: "Invalid " + errors.array()[0].param })
     }
 
     try {
@@ -14,10 +14,10 @@ exports.register = async (req, res) => {
     }
     catch(e) {
         if(e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
-            return res.status(400).send("E-mail already in use")
+            return res.render('index', { error: "E-mail already in use" } )
         }
         else {
-            return res.status(500).send()
+            return res.sendStatus(500)
         }
     }
 }
@@ -26,19 +26,17 @@ exports.login = async (req, res) => {
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() })
+        return res.render('index', { error: "Invalid e-mail or password" } )
     }
 
     try {
         req.session.user = await auth.login(req.body)
     }
     catch(e) {
-        console.log(e)
-        return res.status(400).send("Invalid e-mail or password")
+        return res.render('index', { error: "Invalid e-mail or password" } )
     }
     req.session.auth = true
-    console.log(req.session)
-    return res.redirect('/dashboard')
+    return res.redirect('/transfers')
 }
 
 exports.logout = (req, res) => {
@@ -60,7 +58,7 @@ exports.resetPasswordRequest = async (req, res) => {
         console.log(e)
     }
 
-    res.sendStatus(200)
+    return res.render('message', { title: "Bank", message: "E-mail has been sent (if account exists)" } )
 }
 
 exports.resetPassword = async (req, res) => {
@@ -75,6 +73,6 @@ exports.resetPassword = async (req, res) => {
         return res.redirect('/')
     }
     catch {
-        return res.render('error', { message: "Invalid or expired token" })
+        return res.render('message', { title: "Error", err: true, message: "Invalid or expired token" })
     }
 }

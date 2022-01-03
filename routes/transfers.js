@@ -19,5 +19,7 @@ router.post('/new', auth,
 )
 
 router.get('/:id', auth, transfersController.read)
+router.get('/:id/confirm', auth, transfersController.confirm)
+router.get('/:id/cancel', auth, transfersController.cancel)
 
 module.exports = router
