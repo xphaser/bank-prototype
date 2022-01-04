@@ -1,7 +1,7 @@
 {
   "name": "bank",
   "version": "1.0.0",
-  "description": "",
+  "description": "prototype of bank website for a university project",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,7 +9,7 @@
     "dev": "nodemon server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Piotr Piszczek",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^3.7.0",

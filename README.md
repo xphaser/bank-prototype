@@ -1,0 +1,2 @@
+# Bank prototype
+Prototype of bank website created for a **Computer Security** course university project (lecturer: D.Phil. Filip Zagórski) at the Wroclaw University of Science and Technology (Computer Science, winter of 2021).
